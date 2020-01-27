@@ -7,7 +7,7 @@ from django.views.decorators.http import condition
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Max
 
 from pagelets.models import Pagelet, InlinePagelet, Page, PageAttachment
