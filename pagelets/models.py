@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.template import Template, TemplateSyntaxError
-from django.utils.encoding import python_2_unicode_compatible
+# from django.utils.encoding import python_2_unicode_compatible
 
 from datetime import datetime
 
@@ -52,7 +52,7 @@ class PageletBase(models.Model):
         abstract = True
 
 
-@python_2_unicode_compatible
+# @python_2_unicode_compatible
 class Page(PageletBase):
     title = models.CharField(
         _('title'),
@@ -133,7 +133,7 @@ class Page(PageletBase):
         return self.title
 
 
-@python_2_unicode_compatible
+# @python_2_unicode_compatible
 class Pagelet(PageletBase):
     """
     Primary model for storing pieces of static content in the database.
@@ -313,7 +313,7 @@ class SharedPagelet(PlacedPageletBase):
         ordering = ('order',)
 
 
-@python_2_unicode_compatible
+# @python_2_unicode_compatible
 class PageAttachment(models.Model):
     page = models.ForeignKey(Page, related_name='attachments', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

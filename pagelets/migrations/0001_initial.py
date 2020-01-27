@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
                 ('base_template', models.CharField(blank=True, default='pagelets/view_page.html', verbose_name='base template', help_text='Specify an alternative layout template to use for this page.  Clear the selection to use the default layout.', max_length=255)),
                 ('meta_keywords', models.CharField(blank=True, verbose_name='meta keywords', help_text='A comma delineated list of keywords', max_length=200)),
                 ('meta_robots', models.CharField(blank=True, verbose_name='meta Robots', choices=[('FOLLOW, INDEX', 'FOLLOW, INDEX'), ('NOFOLLOW, NOINDEX', 'NOFOLLOW, NOINDEX'), ('FOLLOW, NOINDEX', 'FOLLOW, NOINDEX'), ('NOFOLLOW, INDEX', 'NOFOLLOW, INDEX')], max_length=20)),
-                ('created_by', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_page_created')),
-                ('modified_by', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_page_last_modified')),
+                ('created_by', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_page_created', on_delete=models.CASCADE)),
+                ('modified_by', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_page_last_modified', on_delete=models.CASCADE)),
                 ('tags', taggit.managers.TaggableManager(to='taggit.Tag', verbose_name='Tags', through='taggit.TaggedItem', help_text='A comma-separated list of tags.')),
             ],
             options={
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255)),
                 ('file', models.FileField(upload_to='attachments/pages/')),
                 ('order', models.SmallIntegerField(blank=True, choices=[(-10, -10), (-9, -9), (-8, -8), (-7, -7), (-6, -6), (-5, -5), (-4, -4), (-3, -3), (-2, -2), (-1, -1), (0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)], null=True)),
-                ('page', models.ForeignKey(related_name='attachments', to='pagelets.Page')),
+                ('page', models.ForeignKey(related_name='attachments', to='pagelets.Page', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('order',),
@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
                 ('pagelet_ptr', models.OneToOneField(auto_created=True, serialize=False, to='pagelets.Pagelet', parent_link=True, primary_key=True)),
                 ('area', models.CharField(default='main', verbose_name='content area', help_text='Specifies the placement of this pagelet on the page.', max_length=32)),
                 ('order', models.SmallIntegerField(blank=True, choices=[(-10, -10), (-9, -9), (-8, -8), (-7, -7), (-6, -6), (-5, -5), (-4, -4), (-3, -3), (-2, -2), (-1, -1), (0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)], help_text='The order in which pagelets should show up on the page. Lower numbers show up first.', null=True)),
-                ('page', models.ForeignKey(related_name='inline_pagelets', to='pagelets.Page')),
+                ('page', models.ForeignKey(related_name='inline_pagelets', to='pagelets.Page', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('order',),
@@ -85,8 +85,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('area', models.CharField(default='main', verbose_name='content area', help_text='Specifies the placement of this pagelet on the page.', max_length=32)),
                 ('order', models.SmallIntegerField(blank=True, choices=[(-10, -10), (-9, -9), (-8, -8), (-7, -7), (-6, -6), (-5, -5), (-4, -4), (-3, -3), (-2, -2), (-1, -1), (0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)], help_text='The order in which pagelets should show up on the page. Lower numbers show up first.', null=True)),
-                ('page', models.ForeignKey(related_name='shared_pagelets', to='pagelets.Page')),
-                ('pagelet', models.ForeignKey(to='pagelets.Pagelet')),
+                ('page', models.ForeignKey(related_name='shared_pagelets', to='pagelets.Page', on_delete=models.CASCADE)),
+                ('pagelet', models.ForeignKey(to='pagelets.Pagelet', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('order',),
@@ -100,13 +100,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='pagelet',
             name='created_by',
-            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_pagelet_created'),
+            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_pagelet_created', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='pagelet',
             name='modified_by',
-            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_pagelet_last_modified'),
+            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='pagelets_pagelet_last_modified', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
