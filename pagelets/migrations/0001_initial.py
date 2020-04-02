@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='InlinePagelet',
             fields=[
-                ('pagelet_ptr', models.OneToOneField(auto_created=True, serialize=False, to='pagelets.Pagelet', parent_link=True, primary_key=True)),
+                ('pagelet_ptr', models.OneToOneField(auto_created=True, serialize=False, to='pagelets.Pagelet', parent_link=True, primary_key=True, on_delete=models.CASCADE)),
                 ('area', models.CharField(default='main', verbose_name='content area', help_text='Specifies the placement of this pagelet on the page.', max_length=32)),
                 ('order', models.SmallIntegerField(blank=True, choices=[(-10, -10), (-9, -9), (-8, -8), (-7, -7), (-6, -6), (-5, -5), (-4, -4), (-3, -3), (-2, -2), (-1, -1), (0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)], help_text='The order in which pagelets should show up on the page. Lower numbers show up first.', null=True)),
                 ('page', models.ForeignKey(related_name='inline_pagelets', to='pagelets.Page', on_delete=models.CASCADE)),
